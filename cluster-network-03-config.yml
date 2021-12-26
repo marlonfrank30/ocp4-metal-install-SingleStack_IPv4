@@ -1,17 +1,21 @@
-apiVersion: config.openshift.io/v1
-kind: Network
+apiVersion: v1
+baseDomain: ocp.local
+compute:
+  - hyperthreading: Enabled
+    name: worker
+    replicas: 0 # Must be set to 0 for User Provisioned Installation as worker nodes will be manually deployed.
+controlPlane:
+  hyperthreading: Enabled
+  name: master
+  replicas: 3
 metadata:
-  name: cluster
-spec:
+  name: cluster # Cluster name
+networking:
   clusterNetwork:
-  - cidr: 10.128.0.0/14
-    hostPrefix: 23
-  - cidr: fd01::/48
-    hostPrefix: 64
-  externalIP:
-    policy: {}
+    - cidr: 10.128.0.0/16
+      hostPrefix: 23
+  machineNetwork:
+    - cidr: 10.1.10.0/24
   networkType: OVNKubernetes
   serviceNetwork:
-  - 172.30.0.0/16
-status:
-
+    - 10.96.0.0/16
