@@ -110,7 +110,13 @@
    kubectl version
    oc version
    ```
+1. To allow bash auto completion script in OpenShift, enable the following commands
 
+   ```bash
+   yum -y install bash-completion
+   oc completion bash >>/etc/bash_completion.d/oc_completion
+   ```
+   
 1. Extract the OpenShift Installer
 
    ```bash
